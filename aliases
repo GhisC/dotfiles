@@ -1,0 +1,104 @@
+PS1='[VM] \[\033[01;32m\]\w\[\033[00m\]$(__git_ps1)\n $ '
+cd /sketchfab/sketchfab/showwebgl
+
+# DOCKER
+alias up='sudo ./docker.sh up'
+alias pt='./docker.sh manage test'
+alias ptk='./docker.sh manage test -k'
+alias down='sudo ./docker.sh down && sudo ./docker.sh down'
+alias build='sudo ./docker.sh build'
+alias rerun='sudo ./docker.sh down && sudo ./docker.sh down && sudo ./docker.sh up'
+alias dbu='sudo ./docker.sh down && sudo ./docker.sh down && sudo ./docker.sh build && sudo ./docker.sh up'
+alias selenium='sudo ./docker.sh down && sudo ./docker.sh down && sudo ./docker.sh selenium'
+
+alias pop='sudo ./docker.sh manage populator --resetdb --force'
+alias popn='sudo ./docker.sh manage populator --resetdb --force --no-models'
+alias shell='sudo ./docker.sh manage shell'
+alias flush='sudo ./docker.sh flush'
+alias fix_vm='./docker.sh fix_vm'
+alias ntpr='service ntp stop && service ntp start && echo "→ ntp restarted!"'
+alias db='sudo ./docker.sh psql showwebgl'
+alias manage='sudo ./docker.sh manage'
+alias fix_front='./docker.sh grunt webpack:buildReactSsr && ./docker.sh react_server reload'
+alias reset_es='./docker.sh manage reset_es --force && ./docker.sh manage load_es_data --doc-type all --index sketchfab_v1 --host default-admin --all && ./docker.sh flush'
+
+# MISC
+alias vim='nvim'
+alias rgrep='grep --exclude-dir={.git,.cache-loader,node_modules} --exclude={webpackstats.web.json,npm-shrinkwrap.json} --color=always -rnI '
+function grepp() {
+        grep -rnI "$1" **/*.py
+}
+alias format='cd /sketchfab/sketchfab && ./showwebgl/format.py -t py -r HEAD -c ; cd /sketchfab/sketchfab/showwebgl'
+
+# GIT ALIASES
+alias gco='git checkout'
+alias gs='git status'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gcm='git commit -m'
+alias gca='git commit --amend'
+alias gpu='git push'
+alias gpl='git pull'
+alias gfe='git fetch'
+alias glo='git log --oneline'
+alias gsh='git stash'
+alias gshk='git stash --keep-index'
+alias gd='git diff --relative'
+alias gdd='git diff'
+alias gdo='git diff --relative origin/`git rev-parse --abbrev-ref HEAD` `git rev-parse --abbrev-ref HEAD`'
+alias gb='python3 /usr/local/bin/git-branch.py'
+alias gr='git rebase'
+alias grom='git rebase origin/master'
+alias gri='git rebase --interactive'
+alias grc='git rebase --continue'
+alias gra='git rebase --abort'
+alias grs='git rebase --skip'
+alias glist='git stash list'
+function gpop()
+{
+        index=$1
+        echo "git stash pop stash@{$index}"
+        git stash pop stash@{$index}
+}
+function gdrop()
+{
+        index=$1
+        echo "git stash drop stash@{$index}"
+        git stash drop stash@{$index}
+}
+function gshow()
+{
+        index=$1
+        shift
+        echo "git stash show -p stash@{$index}"
+        git stash show -p stash@{$index}
+}
+function glb()
+{
+        BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+        TASK_ID="${BRANCH##*_}"
+        git log --oneline --reverse | grep "${TASK_ID}"
+}
+
+function grii()
+{
+        git rebase --interactive HEAD~${1}
+}
+
+if [ -f ~/.git-completion.bash ];
+then
+        source ~/.git-completion.bash
+
+        # Add git completion to aliases
+        __git_complete g __git_main
+        __git_complete gco _git_checkout
+        __git_complete ga _git_add
+        __git_complete gsh _git_stash
+        __git_complete gp _git_cherry_pick
+        __git_complete gd _git_diff
+        __git_complete gr _git_rebase
+        __git_complete gc _git_commit
+        __git_complete gca _git_commit
+        __git_complete gcm _git_commit
+        __git_complete gf _git_fetch
+fi

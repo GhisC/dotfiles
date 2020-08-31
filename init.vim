@@ -19,7 +19,6 @@ set mouse=a
 set showmatch
 set termguicolors
 set undolevels=1000
-set clipboard+=unnamedplus
 
 set incsearch
 set hlsearch
@@ -39,6 +38,22 @@ set ignorecase
 set scrolloff=3
 
 let mapleader=','
+
+" ===== Clipboard =====
+"
+set clipboard+=unnamedplus
+" let g:clipboard = {
+"       \   'name': 'myClipboard',
+"       \   'copy': {
+"       \      '+': 'pbcopy',
+"       \      '*': 'pbcopy',
+"       \    },
+"       \   'paste': {
+"       \      '+': '+',
+"       \      '*': '*',
+"       \   },
+"       \   'cache_enabled': 1,
+"       \ }
 
 " ===== Turn off Swap Files =====
 
@@ -62,6 +77,11 @@ filetype indent on
 set wrap
 set linebreak
 
+" ===== Splits =====
+
+set splitbelow
+set splitright
+
 " ===== Plugins =====
 
 filetype off
@@ -70,7 +90,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'  " let Vundle manage Vundle (required)
-Plugin 'tomasiser/vim-code-dark'
+Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sheerun/vim-polyglot'
@@ -82,40 +102,21 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'w0rp/ale'
 Plugin 'tweekmonster/django-plus.vim'
 Plugin 'majutsushi/tagbar'
-" Plugin 'liuchengxu/vista.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'christoomey/vim-tmux-navigator'  " CONFLICTS WITH SOME KEY BINDINGS
 
 " completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-" Plugin 'ncm2/ncm2'
-" Plugin 'roxma/nvim-yarp'
-" Plugin 'ncm2/ncm2-bufword'
-" Plugin 'ncm2/ncm2-path'
-" Plugin 'davidhalter/jedi-vim'
-" Plugin 'ncm2/ncm2-jedi'
+" Plugin 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 call vundle#end()
 filetype plugin indent on
 
 " ===== Theme =====
-colorscheme codedark
+colorscheme gruvbox
 let python_highlight_all=1
-
-" if has('nvim')
-"     " ===== NCM2 ===== (completion framework)
-"     autocmd BufEnter * call ncm2#enable_for_buffer()
-"     set completeopt=noinsert,menuone,noselect
-"     inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-"     let ncm2#popup_delay = 5
-"     let ncm2#complete_length = [[1,1]]
-"     let g:ncm2#matcher = 'substrfuzzy'
-"     " Use <TAB> to select the popup menu:
-"     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" endif
 
 " ===== coc =====
 inoremap <silent><expr> <TAB>
@@ -131,6 +132,15 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -158,8 +168,8 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -173,7 +183,7 @@ let g:coc_global_extensions = [
 
 " ===== Airline =====
 set noshowmode
-let g:airline_theme='codedark'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_c = 0
@@ -187,17 +197,6 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " ===== Tagbar =====
 nnoremap <silent> <leader>c :TagbarOpenAutoClose<CR>
-
-" ===== Vista =====
-" nnoremap <silent> <leader>c :Vista!!<CR>
-" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-" let g:vista_default_executive = 'ctags'
-" let g:vista_fzf_preview = ['right:50%']
-" let g:vista#renderer#enable_icon = 1
-" let g:vista#renderer#icons = {
-" \   "function": "\uf794",
-" \   "variable": "\uf71b",
-" \  }
 
 " ===== Gutentags =====
 set tags=~/.vim/ctags
@@ -241,6 +240,12 @@ let g:gitgutter_map_keys = 0
 " Move between buffers
 nnoremap  <silent> <C-k>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 nnoremap  <silent> <C-j>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+" Move betweens splits
+" nnoremap <D-J> <C-W><C-J>
+" nnoremap <D-K> <C-W><C-K>
+" nnoremap <D-L> <C-W><C-L>
+" nnoremap <D-H> <C-W><C-H>
 
 " Code folding
 nnoremap <space> za
