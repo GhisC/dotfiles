@@ -1,3 +1,4 @@
+syntax enable
 set nocompatible
 set encoding=utf-8
 set shell=/bin/bash
@@ -15,7 +16,6 @@ set showmode
 set autoread
 set cursorline
 set mouse=a
-" set ttymouse=xterm2
 set showmatch
 set termguicolors
 set undolevels=1000
@@ -29,7 +29,6 @@ set foldlevel=99
 set autowrite
 set hidden
 
-syntax enable
 set colorcolumn=100
 
 set smartcase
@@ -37,23 +36,11 @@ set ignorecase
 
 set scrolloff=3
 
-let mapleader=','
+let mapleader=' '
 
 " ===== Clipboard =====
 "
 set clipboard+=unnamedplus
-" let g:clipboard = {
-"       \   'name': 'myClipboard',
-"       \   'copy': {
-"       \      '+': 'pbcopy',
-"       \      '*': 'pbcopy',
-"       \    },
-"       \   'paste': {
-"       \      '+': '+',
-"       \      '*': '*',
-"       \   },
-"       \   'cache_enabled': 1,
-"       \ }
 
 " ===== Turn off Swap Files =====
 
@@ -109,7 +96,6 @@ Plugin 'ludovicchabant/vim-gutentags'
 
 " completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-" Plugin 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 call vundle#end()
 filetype plugin indent on
@@ -132,15 +118,6 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -242,10 +219,10 @@ nnoremap  <silent> <C-k>  :if &modifiable && !&readonly && &modified <CR> :write
 nnoremap  <silent> <C-j>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 " Move betweens splits
-" nnoremap <D-J> <C-W><C-J>
-" nnoremap <D-K> <C-W><C-K>
-" nnoremap <D-L> <C-W><C-L>
-" nnoremap <D-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " Code folding
 nnoremap <space> za
