@@ -10,6 +10,7 @@ require('bindings')
 -- Plugins config
 require('plugins.coc')
 require('plugins.colorscheme')
+require('plugins.fzf')
 require('plugins.galaxyline')
 require('plugins.gitsigns')
 require('plugins.gutentags')
@@ -17,8 +18,8 @@ require('plugins.gutentags')
 require('plugins.nvim-comment')
 -- require('plugins.nvim-compe')
 -- require('plugins.nvim-tree')
-require('plugins.telescope')
-require('plugins.which-key')
+-- require('plugins.telescope')
+-- require('plugins.which-key')
 
 -- LSP
 -- require('lsp')

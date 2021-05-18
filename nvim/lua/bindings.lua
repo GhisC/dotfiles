@@ -7,9 +7,9 @@ vim.api.nvim_set_keymap('i', 'jj', '<ESC>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
 
 -- Move to the beggining of the line with H
-vim.api.nvim_set_keymap('n', 'H', '^', {silent = true})
+-- vim.api.nvim_set_keymap('n', 'H', '^', {silent = true})
 -- Move to the end of the line with L
-vim.api.nvim_set_keymap('n', 'L', '$', {silent = true})
+-- vim.api.nvim_set_keymap('n', 'L', '$', {silent = true})
 
 -- Pane navigation
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {silent = true})

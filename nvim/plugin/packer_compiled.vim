@@ -81,6 +81,16 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/coc.nvim"
   },
+  fzf = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/fzf"
+  },
+  ["fzf.vim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/fzf.vim"
+  },
   ["galaxyline.nvim"] = {
     loaded = false,
     needs_bufread = false,
@@ -101,11 +111,6 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/nvim-comment"
   },
-  ["nvim-tree.lua"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/ghislain/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
@@ -124,34 +129,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/plenary.nvim"
   },
-  ["popup.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/popup.nvim"
-  },
-  rnvimr = {
-    loaded = true,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/start/rnvimr"
-  },
-  ["telescope-fzy-native.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/telescope-fzy-native.nvim"
-  },
-  ["telescope.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/telescope.nvim"
-  },
   ["vim-gutentags"] = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/vim-gutentags"
-  },
-  ["which-key.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/ghislain/.local/share/nvim/site/pack/packer/opt/which-key.nvim"
   }
 }
 
